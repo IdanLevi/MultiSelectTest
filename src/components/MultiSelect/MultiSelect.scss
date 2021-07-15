@@ -173,5 +173,6 @@
 }
 
 .Hidden {
-  display: none;
+  // display: none;
+  filter: opacity(0);
 }
