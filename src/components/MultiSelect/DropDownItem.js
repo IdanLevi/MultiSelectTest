@@ -4,7 +4,9 @@ import vImage from 'img/check-white.svg';
 
 export default function DropDownItem({ selectedOptions, option, toggleSelection, index, focusIndex }) {
   
-    const myRef = useRef();
+  const myRef = useRef();
+
+  const vImageClassName = `arrow-static ${selectedOptions.find(so => so.value === option.value) ? '' : 'Hidden'}`;
 
   useEffect(() => {
     if (focusIndex === index) {
@@ -15,9 +17,7 @@ export default function DropDownItem({ selectedOptions, option, toggleSelection,
   return (
     <div className="Option" index={index} onClick={() => toggleSelection(option)} ref={myRef} tabIndex="-1">
       <div className="optionSelectedIndicator">
-        {selectedOptions.find(so => so.value === option.value) &&
-          <img src={vImage} className="arrow-static" alt="Selected Indicator" />
-        }
+        <img src={vImage} className={vImageClassName} alt="Selected Indicator" />
       </div>
       <div className="optionLabel" title={option.label}>
         {option.label}
