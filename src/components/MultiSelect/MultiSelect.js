@@ -1,7 +1,8 @@
-  import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./MultiSelect.scss";
 import DropDown from "./DropDown";
 import MultiSelectInput from "./MultiSelectInput";
+import * as Constants from './constants';
 
 export default function MultiSelect({ options, selectedOptions, onChange }) {
   
@@ -19,7 +20,7 @@ export default function MultiSelect({ options, selectedOptions, onChange }) {
 
     const activeElement = document.activeElement;
 
-    if (e.key === 'Backspace') {
+    if (e.key === Constants.BackSpace) {
       if (multiSelectRef.current.contains(e?.target) &&
           selectedOptions.length > 0 &&
           text?.length === 0) {
@@ -27,37 +28,37 @@ export default function MultiSelect({ options, selectedOptions, onChange }) {
         toggleSelection(selectedOptions[selectedOptions.length - 1]);
       }
     }
-    else if (e.key === "ArrowDown") {
-      if(activeElement.className === "InnerInput") {
+    else if (e.key === Constants.ArrowDown) {
+      if(activeElement.className === Constants.InnerInputClassName) {
         e.preventDefault();         
-        const allOptions = multiSelectRef.current.getElementsByClassName("Option");
+        const allOptions = multiSelectRef.current.getElementsByClassName(Constants.OptionClassName);
 
         if (allOptions.length > 0) {
           
           setFocusIndex(0);
         }
       }
-      else if(activeElement.className === "Option") { 
+      else if(activeElement.className === Constants.OptionClassName) { 
         e.preventDefault();
         setFocusIndex(focusIndex === filteredOptions.length - 1 ? 0 : focusIndex + 1);
       }
     }
-    else if (e.key === "ArrowUp") {
-      if(activeElement.className === "InnerInput") {
+    else if (e.key === Constants.ArrowUp) {
+      if(activeElement.className === Constants.InnerInputClassName) {
         e.preventDefault();
-        const allOptions = multiSelectRef.current.getElementsByClassName("Option");
+        const allOptions = multiSelectRef.current.getElementsByClassName(Constants.OptionClassName);
 
         if (allOptions.length > 0) {
           setFocusIndex(filteredOptions.length - 1);
         }
       }
-      else if(activeElement.className === "Option") { 
+      else if(activeElement.className === Constants.OptionClassName) { 
         e.preventDefault();
         setFocusIndex(focusIndex === 0 ? filteredOptions.length - 1 : focusIndex - 1);
       }
     }
-    else if (e.key === "Enter") {
-      if(activeElement.className === "Option") {
+    else if (e.key === Constants.Enter) {
+      if(activeElement.className === Constants.OptionClassName) {
         e.preventDefault();
         const optionToToggle = filteredOptions[activeElement.getAttribute('index')];
         toggleSelection(optionToToggle);
@@ -102,10 +103,10 @@ export default function MultiSelect({ options, selectedOptions, onChange }) {
     closeMenu({});
   };
 
-  const handleTextChange = (e) => {
+  const handleTextChange = ({ target: { value } }) => {
     setIsOpen(true);
-    setText(e.target.value);
-    applyFilter(e.target.value);
+    setText(value);
+    applyFilter(value);
   }
 
   const applyFilter = (text) => {

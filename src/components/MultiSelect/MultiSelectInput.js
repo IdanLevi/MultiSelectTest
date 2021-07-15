@@ -5,12 +5,12 @@ import xImage from 'img/close-white.svg';
 
 export default function MultiSelectInput({ selectedOptions, toggleSelection, changeDropDownOpenedState, isOpen, text, handleTextChange }) {
   
-  const handleArrowClicked = (e) => {
+  const handleArrowClicked = () => {
     inputRef.current.focus();
     changeDropDownOpenedState(!isOpen);
   }
   
-  const handleInputFocused = (e) => {
+  const handleInputFocused = () => {
     changeDropDownOpenedState(true);
   }
 
